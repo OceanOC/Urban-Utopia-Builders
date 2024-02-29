@@ -1,0 +1,4 @@
+name: UrbanUtopiaBuilders
+version: '${version}'
+main: com.github.oceanoc.urbanutopiabuilders.UrbanUtopiaBuilders
+api-version: '1.20'
