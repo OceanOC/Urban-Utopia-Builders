@@ -2,3 +2,10 @@ name: UrbanUtopiaBuilders
 version: '${version}'
 main: com.github.oceanoc.urbanutopiabuilders.UrbanUtopiaBuilders
 api-version: '1.20'
+commands:
+  citymenu:
+    description: Opens the city menu
+    usage: /<command>
+  setupcity:
+    description: Opens the city menu
+    usage: /<command>
