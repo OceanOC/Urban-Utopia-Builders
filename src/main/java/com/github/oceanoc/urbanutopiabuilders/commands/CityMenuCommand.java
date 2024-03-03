@@ -16,7 +16,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CityMenuCommand implements CommandExecutor {
+
+    PlayerAttributes playerAttributes = new PlayerAttributes();
+    Map<String, Integer> money = playerAttributes.getMoneyInstance();
+    
     // GUIs
     public static Inventory CMenu = Bukkit.createInventory(null, 54, Component.text("City Menu"));
     public static Inventory BMenu = Bukkit.createInventory(null, 54, Component.text("Build Menu"));
@@ -35,43 +42,13 @@ public class CityMenuCommand implements CommandExecutor {
         if (args.length == 0) {
             if (sender instanceof Player player) {
 
-                if (!player.hasPlayedBefore()) {
-                    new PlayerAttributes().SetMoney(player.getUniqueId(), 60000);
-                }
-
-                var runnable = new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        player.sendActionBar(Component.text("Money: " + new PlayerAttributes().GetMoney(player.getUniqueId())));
-                    }
-                };
-                runnable.runTaskTimer(UrbanUtopiaBuilders.getInstance(), 20L, 10L);
-
                 setupGUI(0, player);
 
             } else {
                 sender.sendMessage("Only players can access this command");
             }
 
-        } else {
-
-
-            if (sender instanceof Player player){
-
-            if (!player.hasPlayedBefore()) {
-                new PlayerAttributes().SetMoney(((Player) sender).getUniqueId(), 60000);
-            }
-
-            var runnable = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    player.sendActionBar(Component.text("Money: " + new PlayerAttributes().GetMoney(player.getUniqueId())));
-                }
-            };
-            runnable.runTaskTimer(UrbanUtopiaBuilders.getInstance(), 20L, 10L);
-            }
         }
-
 
         return true;
     }
