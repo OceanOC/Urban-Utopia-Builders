@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class PlayerAttributes implements Listener {
+
     private static Map<String, Integer> money = new HashMap<String, Integer>();
 
     public Integer getMoney(String uuid){
@@ -20,7 +21,6 @@ public class PlayerAttributes implements Listener {
 
     public void setMoney(String uuid, Integer val){
         money.put(uuid, val);
-
     }
 
     public Map<String, Integer> getMoneyInstance(){
@@ -30,10 +30,14 @@ public class PlayerAttributes implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent evt) {
         Player player = evt.getPlayer();
-        money.put(player.getName(), 60000);
-        new SetupCityStuff().addactionbar(player);
+        if (player.hasPlayedBefore()) {
+            money.get(player.getName());
+        } else {
+            money.put(player.getName(), 60000);
+        }
+        new SetupCityStuff().addActionBar(player);
         player.getInventory().clear();
         player.getInventory().addItem(SetupCityStuff.RoadBuilderItem);
-    }
 
-}
+    }
+    }
