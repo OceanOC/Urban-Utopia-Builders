@@ -21,25 +21,34 @@ public class GUIListener implements Listener {
 
         Player player = (Player) event.getWhoClicked();
 
-        if (event.getClickedInventory().equals(CMenu)){
+        if (event.getClickedInventory().equals(cMenu)){
 
             // Check if BuildMenuItem is clicked
             if (event.getRawSlot() == 11) {
 
                 player.getItemOnCursor().setAmount(0);
-                event.setCancelled(true);
                 player.closeInventory();
                 new CityMenuCommand().setupGUI(1, player);
 
                 // Check if ZoneMenuItem is clicked
-            } else if (event.getRawSlot() == 13) {
+            } else if (event.getRawSlot() == 29) {
                 player.getItemOnCursor().setAmount(0);
-                event.setCancelled(true);
                 player.closeInventory();
-                new CityMenuCommand().setupGUI(1, player);
+                new CityMenuCommand().setupGUI(2, player);
 
             }
+            event.setCancelled(true);
+        }
 
+        if (event.getClickedInventory().equals(fMenu)){
+
+            // Check if Back Button is clicked
+            if (event.getRawSlot() == 0) {
+                player.getItemOnCursor().setAmount(0);
+                player.closeInventory();
+                new CityMenuCommand().setupGUI(0, player);
+            }
+            event.setCancelled(true);
         }
 
 

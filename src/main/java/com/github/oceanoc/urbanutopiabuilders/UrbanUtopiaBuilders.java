@@ -1,17 +1,14 @@
 package com.github.oceanoc.urbanutopiabuilders;
 
 import com.github.oceanoc.urbanutopiabuilders.commands.CityMenuCommand;
+import com.github.oceanoc.urbanutopiabuilders.commands.GiveCustomItemsCommand;
 import com.github.oceanoc.urbanutopiabuilders.commands.SetupCityStuff;
 import com.github.oceanoc.urbanutopiabuilders.listeners.GUIListener;
-import com.github.oceanoc.urbanutopiabuilders.listeners.RoadBuilderListener;
+import com.github.oceanoc.urbanutopiabuilders.listeners.CustomCityListener;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Map;
-
 public final class UrbanUtopiaBuilders extends JavaPlugin {
-    FileConfiguration config = this.getConfig();
 
     static UrbanUtopiaBuilders instance;
 
@@ -21,17 +18,16 @@ public final class UrbanUtopiaBuilders extends JavaPlugin {
         instance = this;
         Bukkit.getPluginCommand("citymenu").setExecutor(new CityMenuCommand());
         Bukkit.getPluginCommand("setupcity").setExecutor(new SetupCityStuff());
-        getServer().getPluginManager().registerEvents(new RoadBuilderListener(), this);
+        Bukkit.getPluginCommand("givecityitems").setExecutor(new GiveCustomItemsCommand());
+
+        getServer().getPluginManager().registerEvents(new CustomCityListener(), this);
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerAttributes(), this);
-        //config.addDefault("playerattributes", true);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        config.options().copyDefaults(true);
-        saveConfig();
     }
 
     public static UrbanUtopiaBuilders getInstance() {

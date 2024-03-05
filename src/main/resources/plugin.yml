@@ -7,5 +7,8 @@ commands:
     description: Opens the city menu
     usage: /<command>
   setupcity:
-    description: Opens the city menu
+    description: Sets up the addon
+    usage: /<command>
+  givecityitems:
+    description: Gives all city items
     usage: /<command>

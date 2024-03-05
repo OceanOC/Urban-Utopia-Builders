@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,20 +25,25 @@ public class SetupCityStuff implements CommandExecutor {
     PlayerAttributes playerAttributes = new PlayerAttributes();
     Map<String, Integer> money = playerAttributes.getMoneyInstance();
 
-    public static final ItemStack RoadBuilderItem = new ItemStack(Material.NETHERITE_SHOVEL);
-    public static final ItemMeta RoadBuilderItemMeta = RoadBuilderItem.getItemMeta();
+    public static final ItemStack roadBuilderItem = new ItemStack(Material.NETHERITE_SHOVEL);
+    public static final ItemMeta roadBuilderItemMeta = roadBuilderItem.getItemMeta();
+    public static final ItemStack cityMenuItem = new ItemStack(Material.COMPASS);
+    public static final ItemMeta cityMenuItemMeta = cityMenuItem.getItemMeta();
     List<Player> listOfPlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Bukkit.broadcast(Component.text("Use \"/citymenu\" to open up the main menu"));
 
-        RoadBuilderItemMeta.displayName(Component.text("§lRoad Builder"));
-        RoadBuilderItemMeta.setUnbreakable(true);
-        RoadBuilderItem.setItemMeta(RoadBuilderItemMeta);
+        roadBuilderItemMeta.displayName(Component.text("§lRoad Builder"));
+        roadBuilderItemMeta.setUnbreakable(true);
+        roadBuilderItem.setItemMeta(roadBuilderItemMeta);
+        cityMenuItemMeta.displayName(Component.text("§l§6City Menu"));
+        cityMenuItem.setItemMeta(cityMenuItemMeta);
 
         for (int i = 0; listOfPlayers.size() > i; i++){
-            listOfPlayers.get(i).getInventory().addItem(RoadBuilderItem);
+            listOfPlayers.get(i).getInventory().addItem(roadBuilderItem);
+            listOfPlayers.get(i).getInventory().addItem(cityMenuItem);
             money.put(listOfPlayers.get(i).getName(), 60000);
             listOfPlayers.get(i).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, -1, 2));
         }
@@ -61,6 +65,8 @@ public class SetupCityStuff implements CommandExecutor {
         var runnable = new BukkitRunnable() {
             @Override
             public void run() {
+                // This is deprecated
+                // TODO: Use something not deprecated
                     player.sendActionBar(Component.text("Money: " + money.get(player.getName())));
             }
         };

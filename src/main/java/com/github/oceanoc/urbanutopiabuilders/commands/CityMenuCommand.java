@@ -25,14 +25,16 @@ public class CityMenuCommand implements CommandExecutor {
     Map<String, Integer> money = playerAttributes.getMoneyInstance();
     
     // GUIs
-    public static Inventory CMenu = Bukkit.createInventory(null, 54, Component.text("City Menu"));
-    public static Inventory BMenu = Bukkit.createInventory(null, 54, Component.text("Build Menu"));
+    public static Inventory cMenu = Bukkit.createInventory(null, 54, Component.text("City Menu"));
+    public static Inventory bMenu = Bukkit.createInventory(null, 54, Component.text("Build Menu"));
+    public static Inventory fMenu = Bukkit.createInventory(null, 54, Component.text("Finance Menu"));
 
     // GUI Items
-    public static final ItemStack BuildMenuItem = new ItemStack(Material.BRICKS);
-    public static final ItemStack ZoneMenuItem = new ItemStack(Material.GREEN_WOOL);
-    public static ItemMeta BuildMenuMeta = BuildMenuItem.getItemMeta();
-    public static ItemMeta ZoneMenuMeta = ZoneMenuItem.getItemMeta();
+    public static final ItemStack buildMenuItem = new ItemStack(Material.BRICKS);
+    public static final ItemStack financeMenuItem = new ItemStack(Material.PAPER);
+    public static final ItemStack backButtonItem = new ItemStack(Material.BARRIER);
+    public static ItemMeta buildMenuMeta = buildMenuItem.getItemMeta();
+    public static ItemMeta financeMenuMeta = financeMenuItem.getItemMeta();
 
 
 
@@ -59,31 +61,44 @@ public class CityMenuCommand implements CommandExecutor {
     public void setupGUI(int guinum, Player player) {
         switch (guinum) {
             case 0:
-                CMenu.clear();
+                cMenu.clear();
 
                 for (int i = 0; 54 > i; i++) {
-                    CMenu.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                    cMenu.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 }
 
-                BuildMenuMeta.displayName(Component.text("§lBuild Menu").color(TextColor.fromHexString("#FFAA00")));
-                BuildMenuItem.setItemMeta(BuildMenuMeta);
-                ZoneMenuMeta.displayName(Component.text("§lZone Menu").color(TextColor.fromHexString("#55FF55")));
-                ZoneMenuItem.setItemMeta(ZoneMenuMeta);
+                buildMenuMeta.displayName(Component.text("§lBuild Menu").color(TextColor.fromHexString("#FFAA00")));
+                buildMenuItem.setItemMeta(buildMenuMeta);
+                financeMenuMeta.displayName(Component.text("§lFinances").color(TextColor.fromHexString("#55FF55")));
+                financeMenuItem.setItemMeta(financeMenuMeta);
 
-                CMenu.setItem(11, BuildMenuItem);
-                CMenu.setItem(13, ZoneMenuItem);
+                cMenu.setItem(11, buildMenuItem);
+                cMenu.setItem(29, financeMenuItem);
 
-                player.openInventory(CMenu);
+                player.openInventory(cMenu);
                 break;
 
             case 1:
-                BMenu.clear();
+                bMenu.clear();
 
                 for (int i = 0; 54 > i; i++) {
-                    BMenu.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                    bMenu.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 }
 
-                player.openInventory(BMenu);
+                bMenu.setItem(0, backButtonItem);
+
+                player.openInventory(bMenu);
+                break;
+            case 2:
+                fMenu.clear();
+
+                for (int i = 0; 54 > i; i++) {
+                    fMenu.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+                }
+
+                fMenu.setItem(0, backButtonItem);
+
+                player.openInventory(fMenu);
                 break;
         }
     }
