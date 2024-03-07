@@ -1,8 +1,10 @@
 package com.github.oceanoc.urbanutopiabuilders.commands;
 
+import com.github.oceanoc.urbanutopiabuilders.GetCustomItem;
 import com.github.oceanoc.urbanutopiabuilders.PlayerAttributes;
 import com.github.oceanoc.urbanutopiabuilders.UrbanUtopiaBuilders;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -24,26 +26,15 @@ public class SetupCityStuff implements CommandExecutor {
 
     PlayerAttributes playerAttributes = new PlayerAttributes();
     Map<String, Integer> money = playerAttributes.getMoneyInstance();
-
-    public static final ItemStack roadBuilderItem = new ItemStack(Material.NETHERITE_SHOVEL);
-    public static final ItemMeta roadBuilderItemMeta = roadBuilderItem.getItemMeta();
-    public static final ItemStack cityMenuItem = new ItemStack(Material.COMPASS);
-    public static final ItemMeta cityMenuItemMeta = cityMenuItem.getItemMeta();
     List<Player> listOfPlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Bukkit.broadcast(Component.text("Use \"/citymenu\" to open up the main menu"));
-
-        roadBuilderItemMeta.displayName(Component.text("§lRoad Builder"));
-        roadBuilderItemMeta.setUnbreakable(true);
-        roadBuilderItem.setItemMeta(roadBuilderItemMeta);
-        cityMenuItemMeta.displayName(Component.text("§l§6City Menu"));
-        cityMenuItem.setItemMeta(cityMenuItemMeta);
+        Bukkit.broadcast(Component.text("Use \"/citymenu\" to open up the main menu").color(TextColor.fromHexString("")));
 
         for (int i = 0; listOfPlayers.size() > i; i++){
-            listOfPlayers.get(i).getInventory().addItem(roadBuilderItem);
-            listOfPlayers.get(i).getInventory().addItem(cityMenuItem);
+            listOfPlayers.get(i).getInventory().addItem(new GetCustomItem().getCityMenuItem());
+            listOfPlayers.get(i).getInventory().addItem(new GetCustomItem().getRoadBuilderItem());
             money.put(listOfPlayers.get(i).getName(), 60000);
             listOfPlayers.get(i).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, -1, 2));
         }
@@ -65,8 +56,8 @@ public class SetupCityStuff implements CommandExecutor {
         var runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                // This is deprecated
-                // TODO: Use something not deprecated
+
+                    // I don't know why, I shouldn't have to wonder why, but for whatever reason Bukkit hasn't implemented a new actionbar method for players
                     player.sendActionBar(Component.text("Money: " + money.get(player.getName())));
             }
         };

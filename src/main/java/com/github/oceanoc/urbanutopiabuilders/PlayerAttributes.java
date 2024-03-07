@@ -36,13 +36,8 @@ public class PlayerAttributes implements Listener {
         }
         new SetupCityStuff().addActionBar(player);
         player.getInventory().clear();
-        SetupCityStuff.roadBuilderItemMeta.displayName(Component.text("§lRoad Builder"));
-        SetupCityStuff.roadBuilderItemMeta.setUnbreakable(true);
-        SetupCityStuff.roadBuilderItem.setItemMeta(SetupCityStuff.roadBuilderItemMeta);
-        SetupCityStuff.cityMenuItemMeta.displayName(Component.text("§l§6City Menu"));
-        SetupCityStuff.cityMenuItem.setItemMeta(SetupCityStuff.cityMenuItemMeta);
-        player.getInventory().setItem(0, SetupCityStuff.roadBuilderItem);
-        player.getInventory().setItem(9, SetupCityStuff.cityMenuItem);
+        new GetCustomItem().giveCityMenu(player, true);
+        new GetCustomItem().giveRoadBuilder(player, true);
 
     }
     }

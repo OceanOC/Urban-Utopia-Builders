@@ -1,5 +1,6 @@
 package com.github.oceanoc.urbanutopiabuilders.listeners;
 
+import com.github.oceanoc.urbanutopiabuilders.GetCustomItem;
 import com.github.oceanoc.urbanutopiabuilders.PlayerAttributes;
 import com.github.oceanoc.urbanutopiabuilders.commands.CityMenuCommand;
 import com.github.oceanoc.urbanutopiabuilders.commands.SetupCityStuff;
@@ -20,14 +21,14 @@ public class CustomCityListener implements Listener {
         // Add roads
         if (event.hasItem() && event.hasBlock()){
             if (event.getAction().isRightClick() && event.getItem().hasItemMeta()){
-                if (event.getItem().getItemMeta().equals(SetupCityStuff.roadBuilderItemMeta)){
+                if (event.getItem().getItemMeta().equals(new GetCustomItem().getRoadBuilderItem())){
                     event.getClickedBlock().setType(Material.GRAY_CONCRETE);
                     money.put(event.getPlayer().getName(), (money.get(event.getPlayer().getName()) - 50));
                 }
             }
 
             if (event.getAction().isLeftClick() && event.getItem().hasItemMeta() && event.getClickedBlock().getType().equals(Material.GRAY_CONCRETE)){
-                if (event.getItem().getItemMeta().equals(SetupCityStuff.roadBuilderItemMeta)){
+                if (event.getItem().getItemMeta().equals(new GetCustomItem().getRoadBuilderItemMeta())){
                     event.getClickedBlock().setType(Material.GRASS_BLOCK);
                     money.put(event.getPlayer().getName(), (money.get(event.getPlayer().getName()) - 100));
                 }
@@ -39,7 +40,7 @@ public class CustomCityListener implements Listener {
         // City Menu Item
         if (event.hasItem()){
             if (event.getAction().isRightClick() && event.getItem().hasItemMeta()){
-                if (event.getItem().getItemMeta().equals(SetupCityStuff.cityMenuItemMeta)){
+                if (event.getItem().getItemMeta().equals(new GetCustomItem().getCityMenuItemMeta())){
                     new CityMenuCommand().setupGUI(0, event.getPlayer());
                 }
             }
