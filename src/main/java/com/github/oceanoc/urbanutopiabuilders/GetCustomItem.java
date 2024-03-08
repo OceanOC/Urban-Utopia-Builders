@@ -18,7 +18,7 @@ public class GetCustomItem {
         cityMenuItemMeta.displayName(Component.text("§l§6City Menu"));
         cityMenuItem.setItemMeta(cityMenuItemMeta);
         if (givePlayerItem){
-            player.getInventory().setItem(8, roadBuilderItem);
+            player.getInventory().setItem(8, cityMenuItem);
         }
     }
 
@@ -51,8 +51,7 @@ public class GetCustomItem {
     }
 
     public ItemMeta getCityMenuItemMeta(){
-        cityMenuItemMeta.displayName(Component.text("§l§6City Menu"));
-        cityMenuItem.setItemMeta(cityMenuItemMeta);
+        cityMenuItemMeta.displayName(Component.text("§6§lCity Menu"));
         return cityMenuItemMeta;
     }
 }

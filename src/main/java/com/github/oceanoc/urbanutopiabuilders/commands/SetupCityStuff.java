@@ -33,8 +33,8 @@ public class SetupCityStuff implements CommandExecutor {
         Bukkit.broadcast(Component.text("Use \"/citymenu\" to open up the main menu").color(TextColor.fromHexString("")));
 
         for (int i = 0; listOfPlayers.size() > i; i++){
-            listOfPlayers.get(i).getInventory().addItem(new GetCustomItem().getCityMenuItem());
-            listOfPlayers.get(i).getInventory().addItem(new GetCustomItem().getRoadBuilderItem());
+            listOfPlayers.get(i).getInventory().setItem(8, new GetCustomItem().getCityMenuItem());
+            listOfPlayers.get(i).getInventory().setItem(0, new GetCustomItem().getRoadBuilderItem());
             money.put(listOfPlayers.get(i).getName(), 60000);
             listOfPlayers.get(i).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, -1, 2));
         }

@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -32,8 +33,10 @@ public class CityMenuCommand implements CommandExecutor {
     // GUI Items
     public static final ItemStack buildMenuItem = new ItemStack(Material.BRICKS);
     public static final ItemStack financeMenuItem = new ItemStack(Material.PAPER);
+    public static final ItemStack taxMenuItem = new ItemStack(Material.PAPER);
     public static final ItemStack backButtonItem = new ItemStack(Material.BARRIER);
     public static ItemMeta buildMenuMeta = buildMenuItem.getItemMeta();
+    public static ItemMeta taxMenuMeta = taxMenuItem.getItemMeta();
     public static ItemMeta financeMenuMeta = financeMenuItem.getItemMeta();
 
 
@@ -79,6 +82,7 @@ public class CityMenuCommand implements CommandExecutor {
                 break;
 
             case 1:
+                // Building Menu
                 bMenu.clear();
 
                 for (int i = 0; 54 > i; i++) {
@@ -90,13 +94,18 @@ public class CityMenuCommand implements CommandExecutor {
                 player.openInventory(bMenu);
                 break;
             case 2:
+                // Finance Menu
                 fMenu.clear();
 
                 for (int i = 0; 54 > i; i++) {
                     fMenu.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
                 }
 
+                taxMenuMeta.displayName(Component.text("§aTaxes"));
+                taxMenuItem.setItemMeta(taxMenuMeta);
+
                 fMenu.setItem(0, backButtonItem);
+                fMenu.setItem(0, taxMenuItem);
 
                 player.openInventory(fMenu);
                 break;
